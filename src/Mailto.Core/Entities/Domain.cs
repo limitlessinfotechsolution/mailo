@@ -6,9 +6,9 @@ namespace Mailto.Core.Entities
     {
         public Guid DomainId { get; set; }
         public Guid TenantId { get; set; }
-        public string Name { get; set; }
+        public required string Name { get; set; }
         public bool IsVerified { get; set; }
-        public string VerificationToken { get; set; }
+        public required string VerificationToken { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

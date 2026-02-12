@@ -1,6 +1,6 @@
--- Initial database setup for Mailto™
--- Create database if not exists
--- CREATE DATABASE mailto;
-
--- The schema will be managed by EF Core migrations,
--- but manual scripts can be placed here.
+-- Initial database setup for Mailto platform
+CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);

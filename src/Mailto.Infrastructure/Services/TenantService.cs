@@ -21,7 +21,7 @@ namespace Mailto.Infrastructure.Services
             return await _context.Tenants.ToListAsync();
         }
 
-        public async Task<Tenant> GetTenantByIdAsync(Guid tenantId)
+        public async Task<Tenant?> GetTenantByIdAsync(Guid tenantId)
         {
             return await _context.Tenants.FindAsync(tenantId);
         }

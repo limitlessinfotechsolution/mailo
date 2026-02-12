@@ -1,83 +1,42 @@
 @page "/admin/storage"
-@layout MainLayout
+@using Mailto.UI.Components
 
-<div class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen font-display antialiased">
-    <header class="sticky top-0 z-10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-10 py-6 border-b border-slate-200 dark:border-slate-800">
-        <div class="max-w-4xl mx-auto flex justify-between items-end">
-            <div>
-                <h2 class="text-2xl font-bold tracking-tight">Plan & Storage</h2>
-                <p class="text-sm text-slate-500 mt-1 font-medium">Manage your enterprise resources and billing cycles.</p>
-            </div>
-            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-sm hover:opacity-90 transition-opacity">
-                Upgrade Plan
-            </button>
-        </div>
-    </header>
+<div class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-full flex font-display antialiased overflow-hidden">
+    <!-- Middle Sidebar (Local Context) -->
+    <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col pt-6 shrink-0 transition-all duration-300">
+        <nav class="space-y-1 w-full px-4">
+            <a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg font-medium transition-colors" href="/admin/tenants">
+                <span class="material-icons-round">dashboard</span>
+                <span>Overview</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg font-medium" href="/admin/storage">
+                <span class="material-icons-round">storage</span>
+                <span>Storage & Billing</span>
+            </a>
+        </nav>
+    </aside>
 
-    <div class="max-w-4xl mx-auto px-10 pb-20 pt-8 space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-soft border border-slate-200 dark:border-slate-800">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Storage Usage</h3>
-                        <p class="text-2xl font-bold mt-1">450 GB <span class="text-sm font-normal text-slate-400">/ 1 TB</span></p>
+    <main class="flex-1 flex flex-col overflow-hidden bg-white dark:bg-background-dark">
+        <header class="h-16 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-8 bg-white/70 dark:bg-background-dark/70 backdrop-blur-md">
+            <h1 class="text-xl font-bold">Storage & Billing</h1>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8">
+            <div class="max-w-4xl space-y-8">
+                <section class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-soft">
+                    <h2 class="text-lg font-bold mb-4">Storage Usage</h2>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-500">Total used: 780 GB</span>
+                            <span class="font-bold">78%</span>
+                        </div>
+                        <div class="h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-primary rounded-full" style="width: 78%"></div>
+                        </div>
+                        <p class="text-xs text-slate-400">Your organization is currently using 780 GB of 1 TB total storage.</p>
                     </div>
-                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">cloud_queue</span>
-                </div>
-                <div class="relative w-full h-2.5 bg-gray-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                    <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full" style="width: 45%;"></div>
-                </div>
-                <p class="text-[11px] text-slate-500 mt-3">45% of storage allocated. Next tier starts at 2 TB.</p>
-            </div>
-
-            <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-soft border border-slate-200 dark:border-slate-800">
-                <div class="flex justify-between items-start mb-6">
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">User Seats</h3>
-                        <p class="text-2xl font-bold mt-1">75 <span class="text-sm font-normal text-slate-400">/ 100</span></p>
-                    </div>
-                    <span class="material-symbols-outlined text-primary bg-primary/10 p-2 rounded-xl">group</span>
-                </div>
-                <div class="relative w-full h-2.5 bg-gray-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                    <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full" style="width: 75%;"></div>
-                </div>
-                <p class="text-[11px] text-slate-500 mt-3">75 seats active. 25 invitations available.</p>
+                </section>
             </div>
         </div>
-
-        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-soft border border-slate-200 dark:border-slate-800 overflow-hidden">
-            <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-                <h3 class="font-bold text-sm uppercase tracking-wider text-slate-500">Current Plan Details</h3>
-            </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-slate-200 dark:divide-slate-800">
-                <div class="p-6"><p class="text-xs text-slate-500 mb-1">Plan</p><p class="font-bold text-base">Business Pro</p></div>
-                <div class="p-6"><p class="text-xs text-slate-500 mb-1">Billing cycle</p><p class="font-bold text-base">Monthly</p></div>
-                <div class="p-6"><p class="text-xs text-slate-500 mb-1">Cost</p><p class="font-bold text-base">$120.00 <span class="text-[10px] font-medium text-slate-400">/mo</span></p></div>
-                <div class="p-6"><p class="text-xs text-slate-500 mb-1">Renewal date</p><p class="font-bold text-base">July 15, 2024</p></div>
-            </div>
-        </div>
-
-        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-soft border border-slate-200 dark:border-slate-800 overflow-hidden">
-             <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-gray-50/50 dark:bg-zinc-800/50 text-[10px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-200 dark:border-slate-800">
-                        <th class="px-6 py-4 font-bold">Date</th>
-                        <th class="px-6 py-4 font-bold">Invoice ID</th>
-                        <th class="px-6 py-4 font-bold">Amount</th>
-                        <th class="px-6 py-4 font-bold">Status</th>
-                        <th class="px-6 py-4 font-bold text-right">Action</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
-                    <tr class="text-sm hover:bg-gray-50 dark:hover:bg-zinc-800/30 transition-colors">
-                        <td class="px-6 py-4 font-medium">June 15, 2024</td>
-                        <td class="px-6 py-4 text-slate-500 font-mono text-xs">INV-2024-0615</td>
-                        <td class="px-6 py-4 font-semibold">$120.00</td>
-                        <td class="px-6 py-4"><span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">PAID</span></td>
-                        <td class="px-6 py-4 text-right"><button class="text-primary font-semibold text-xs hover:underline">View</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    </main>
 </div>

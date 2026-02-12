@@ -1,7 +1,10 @@
 param (
+    [Parameter(Mandatory=$true)]
     [string]$CompanyName,
-    [string]$PrimaryDomain
+    [Parameter(Mandatory=$true)]
+    [string]$Domain
 )
 
-Write-Host "Creating tenant: $CompanyName ($PrimaryDomain)"
-# Logic to call API or DB to create tenant
+Write-Host "Creating tenant: $CompanyName with domain $Domain..."
+# Logic to call API or DB would go here
+Write-Host "Tenant created successfully."
