@@ -1,44 +1,23 @@
 @page "/admin/tenants"
 @using Mailto.UI.Components
 
-<div class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex font-display antialiased">
-    <!-- Sidebar Navigation (macOS narrow style) -->
-    <aside class="w-20 lg:w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col items-center lg:items-stretch py-6 px-4 shrink-0 transition-all duration-300">
-        <div class="flex items-center gap-3 px-2 mb-10">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shrink-0">
-                <span class="material-icons-round">alternate_email</span>
-            </div>
-            <span class="hidden lg:block text-xl font-extrabold tracking-tight">Mailto</span>
-        </div>
-        <nav class="space-y-1 w-full">
+<div class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 h-full flex font-display antialiased overflow-hidden">
+    <!-- Middle Sidebar (Local Context) -->
+    <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col pt-6 shrink-0 transition-all duration-300">
+        <nav class="space-y-1 w-full px-4">
             <a class="flex items-center gap-3 px-3 py-2.5 bg-primary/10 text-primary rounded-lg font-medium" href="/admin/tenants">
                 <span class="material-icons-round">dashboard</span>
-                <span class="hidden lg:block">Overview</span>
+                <span>Overview</span>
             </a>
             <a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg font-medium transition-colors" href="/admin/tenants">
                 <span class="material-icons-round">business</span>
-                <span class="hidden lg:block">Tenants</span>
+                <span>Tenants</span>
             </a>
             <a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg font-medium transition-colors" href="/admin/audit-logs">
                 <span class="material-icons-round">security</span>
-                <span class="hidden lg:block">Audit Logs</span>
+                <span>Audit Logs</span>
             </a>
         </nav>
-        <div class="mt-auto pt-6 border-t border-slate-100 dark:border-slate-800 w-full">
-            <a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg font-medium transition-colors" href="#">
-                <span class="material-icons-round">settings</span>
-                <span class="hidden lg:block">Settings</span>
-            </a>
-            <div class="mt-4 flex items-center gap-3 px-2">
-                <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden border-2 border-white dark:border-slate-800">
-                    <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwDEspVOM1FcHNjua0q2xvtmCDyjaN9WbOslXb0DKUZKsoh2A3zj1Z_xWIWySDXr4tahbfm0cJHJssjHW7DcNb3Q64wh3Ai2arQWOgMcB2acCGuAsJkqTktd1MZkvaJ74NY65dgbMleAUdDIL1zEcPJC5d22soPtu5Ef5J-pCOFif2biYuMaWUDw-r4XbLvkLS4xotYfQ0_cHJPE8qRREl22Yt4qdvYhC59lMKeHZPH0RH25w7tdFMiTL-wiR8G3SzZdD3MRUThq8k" />
-                </div>
-                <div class="hidden lg:block overflow-hidden">
-                    <p class="text-sm font-semibold truncate">Alex Chen</p>
-                    <p class="text-xs text-slate-400 truncate">Super Admin</p>
-                </div>
-            </div>
-        </div>
     </aside>
 
     <!-- Main Content -->
