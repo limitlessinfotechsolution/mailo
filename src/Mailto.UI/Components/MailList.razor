@@ -11,7 +11,7 @@
 </div>
 
 @code {
-    [Parameter] public List<EmailMessage> Emails { get; set; }
+    [Parameter] public required List<EmailMessage> Emails { get; set; }
     [Parameter] public EventCallback<EmailMessage> OnEmailSelected { get; set; }
 }
 

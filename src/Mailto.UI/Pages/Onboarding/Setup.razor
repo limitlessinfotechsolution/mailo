@@ -148,7 +148,7 @@
     private string companyName = "";
     private string primaryDomain = "";
 
-    [Inject] private NavigationManager Navigation { get; set; }
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
 
     private void HandleSubmit()
     {

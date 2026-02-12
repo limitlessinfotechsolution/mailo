@@ -93,6 +93,6 @@
 </style>
 
 @code {
-    [Inject] private NavigationManager Navigation { get; set; }
+    [Inject] private NavigationManager Navigation { get; set; } = default!;
     private void LaunchMailto() => Navigation.NavigateTo("/inbox");
 }
