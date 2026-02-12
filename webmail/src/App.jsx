@@ -27,6 +27,17 @@ function App() {
   const [composeMode, setComposeMode] = useState('new'); // new, reply, replyAll, forward (for future UI differentiation)
   const [composeInitialData, setComposeInitialData] = useState(null);
 
+  // Mail State
+  const [folders, setFolders] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [selectedFolder, setSelectedFolder] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [undoJobId, setUndoJobId] = useState(null);
+  const [showUndoToast, setShowUndoToast] = useState(false);
+  const [loadingMessages, setLoadingMessages] = useState(false);
+  const [showSnooze, setShowSnooze] = useState(false);
+  const [snoozeDate, setSnoozeDate] = useState('');
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const savedUser = localStorage.getItem('user');
@@ -110,17 +121,6 @@ function App() {
     setComposeInitialData(null);
   }, []);
   
-  // Mail State
-  const [folders, setFolders] = useState([]);
-  const [messages, setMessages] = useState([]);
-  const [selectedFolder, setSelectedFolder] = useState(null);
-  const [selectedMessage, setSelectedMessage] = useState(null);
-  const [undoJobId, setUndoJobId] = useState(null);
-  const [showUndoToast, setShowUndoToast] = useState(false);
-  const [loadingMessages, setLoadingMessages] = useState(false);
-  const [showSnooze, setShowSnooze] = useState(false);
-  const [snoozeDate, setSnoozeDate] = useState('');
-
   const handleSendSuccess = (data) => {
     // If scheduled for later (> 1 min), don't show undo toast
     if (data.scheduledAt && new Date(data.scheduledAt).getTime() - Date.now() > 60000) {
@@ -318,7 +318,14 @@ function App() {
             <div className="w-56 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col flex-shrink-0 transition-colors duration-200">
               <div className="p-3 flex items-center justify-between">
                 <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Folders</span>
-                <button className="text-gray-400 hover:text-gray-600"><FiRefreshCw size={12} onClick={() => loadFolders()} /></button>
+                <button
+                  className="text-gray-400 hover:text-gray-600"
+                  onClick={() => loadFolders()}
+                  aria-label="Refresh Folders"
+                  title="Refresh Folders"
+                >
+                  <FiRefreshCw size={12} />
+                </button>
               </div>
               <nav className="flex-1 overflow-y-auto px-2 space-y-1">
                 {folders.map(folder => (
@@ -348,7 +355,12 @@ function App() {
               <div className="h-10 border-b border-gray-200 flex items-center px-3 bg-gray-50 justify-between">
                 <span className="font-semibold text-gray-700 truncate">{selectedFolder?.name}</span>
                 <div className="flex gap-2">
-                   <button className="text-gray-500 hover:text-gray-700" title="Refresh" onClick={() => selectedFolder && loadMessages(selectedFolder._id, searchQuery)}>
+                   <button
+                     className="text-gray-500 hover:text-gray-700"
+                     title="Refresh messages"
+                     aria-label="Refresh messages"
+                     onClick={() => selectedFolder && loadMessages(selectedFolder._id, searchQuery)}
+                   >
                      <FiRefreshCw size={14} className={loadingMessages ? 'animate-spin' : ''} />
                    </button>
                 </div>
@@ -371,6 +383,8 @@ function App() {
                     <button 
                       onClick={clearSearch}
                       className="absolute right-2 top-2.5 text-gray-400 hover:text-gray-600"
+                      aria-label="Clear search"
+                      title="Clear search"
                     >
                       <span className="text-xs">✕</span>
                     </button>
@@ -424,15 +438,16 @@ function App() {
                   <FiEdit size={16} /> New
                 </button>
                 <div className="h-4 w-px bg-gray-300 mx-1"></div>
-                <button onClick={handleReply} className="text-gray-600 hover:text-gray-900" title="Reply" disabled={!selectedMessage}><FiChevronLeft size={18} /></button>
-                <button onClick={handleReplyAll} className="text-gray-600 hover:text-gray-900" title="Reply All" disabled={!selectedMessage}><FiUsers size={18} /></button>
-                <button onClick={handleForward} className="text-gray-600 hover:text-gray-900" title="Forward" disabled={!selectedMessage}><FiChevronRight size={18} /></button>
+                <button onClick={handleReply} className="text-gray-600 hover:text-gray-900" title="Reply" aria-label="Reply" disabled={!selectedMessage}><FiChevronLeft size={18} /></button>
+                <button onClick={handleReplyAll} className="text-gray-600 hover:text-gray-900" title="Reply All" aria-label="Reply All" disabled={!selectedMessage}><FiUsers size={18} /></button>
+                <button onClick={handleForward} className="text-gray-600 hover:text-gray-900" title="Forward" aria-label="Forward" disabled={!selectedMessage}><FiChevronRight size={18} /></button>
                 <div className="h-4 w-px bg-gray-300 mx-1"></div>
                 <div className="relative">
                   <button 
                     onClick={() => setShowSnooze(!showSnooze)} 
                     className={`text-gray-600 hover:text-gray-900 ${showSnooze ? 'text-blue-600' : ''}`} 
                     title="Snooze" 
+                    aria-label="Snooze"
                     disabled={!selectedMessage}
                   >
                     <FiClock size={18} />
@@ -468,9 +483,9 @@ function App() {
                   )}
                 </div>
                 <div className="h-4 w-px bg-gray-300 mx-1"></div>
-                <button onClick={handleDeleteMessage} className="text-gray-600 hover:text-red-600" title="Delete" disabled={!selectedMessage}><FiTrash2 size={18} /></button>
+                <button onClick={handleDeleteMessage} className="text-gray-600 hover:text-red-600" title="Delete" aria-label="Delete message" disabled={!selectedMessage}><FiTrash2 size={18} /></button>
                 <div className="flex-1"></div>
-                <button className="text-gray-600 hover:text-gray-900" title="More"><FiMoreHorizontal size={18} /></button>
+                <button className="text-gray-600 hover:text-gray-900" title="More options" aria-label="More options"><FiMoreHorizontal size={18} /></button>
               </div>
 
               {selectedMessage ? (
@@ -539,7 +554,12 @@ function App() {
              )}
              <NavButton icon={<FiSettings />} label="Settings" active={currentView === 'settings'} onClick={() => setCurrentView('settings')} />
              
-             <button onClick={toggleTheme} className="w-10 h-10 rounded-xl flex items-center justify-center text-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all" title="Toggle Theme">
+             <button
+               onClick={toggleTheme}
+               className="w-10 h-10 rounded-xl flex items-center justify-center text-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all"
+               title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+               aria-label={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+             >
                {theme === 'light' ? <FiMoon /> : <FiSun />}
              </button>
 
@@ -548,7 +568,7 @@ function App() {
                localStorage.removeItem('token');
                localStorage.removeItem('user');
                setAuthToken(null);
-             }} className="w-10 h-10 rounded-xl flex items-center justify-center text-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all" title="Logout">
+             }} className="w-10 h-10 rounded-xl flex items-center justify-center text-xl text-gray-400 hover:text-white hover:bg-gray-800 transition-all" title="Logout" aria-label="Logout">
                <FiLogOut />
              </button>
           </div>
@@ -626,6 +646,7 @@ function NavButton({ icon, label, active, onClick }) {
           : 'text-gray-400 hover:bg-gray-800 hover:text-white'
       }`}
       title={label}
+      aria-label={label}
     >
       {icon}
     </button>
